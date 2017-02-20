@@ -1,0 +1,28 @@
+---
+- name: create users
+  user:
+    name: "{{ item.name | mandatory }}"
+    password: "{{ item.password | default('!!')}}"
+    groups: "{{item.groups | join(',') if 'groups' in item else '' }}"
+    comment: "{{ item.comment | default(item.name) }}"
+    shell: "{{ item.shell | default('/bin/bash') }}"
+    state: "{{ item.state | default('present') }}"
+    createhome: "{{ item.createhome | default('yes') }}"
+  with_items: "{{ users }}"
+  tags: ['users','configuration']
+
+- name: add ssh keys
+  authorized_key:
+    user: "{{ item.name }}"
+    state: "{{ item.state }}"
+    key: "{{ item.sshkey }}"
+    manage_dir: yes
+  with_items: "{{ users }}"
+  tags: ['users','configuration']
+
+- name: delete users
+  user: 
+    name: "{{ item }}"
+    state: absent 
+  with_items: "{{ deleted_users }}"
+  tags: ['users','configuration']

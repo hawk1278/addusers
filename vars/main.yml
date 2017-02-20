@@ -1,0 +1,8 @@
+---
+users:
+- name: rohara
+  comment: Richard O'Hara
+  state: present
+  sshkey: "{{ lookup('file', 'rohara.pub') }}"
+
+deleted_users: ['']
