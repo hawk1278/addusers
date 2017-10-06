@@ -1,1 +1,5 @@
 ---
+users:
+- { name: "rich", comment: "Rich O'Hara", state: "present", sshkey: "lookup('file', '../files/rohara.pub')"}
+
+deleted_users: ['']

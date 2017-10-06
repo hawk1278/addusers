@@ -3,13 +3,17 @@
   user:
     name: "{{ item.name | mandatory }}"
     password: "{{ item.password | default('!!')}}"
-    groups: "{{item.groups | join(',') if 'groups' in item else '' }}"
+    groups: "{{ item.groups | default('') }}"
     comment: "{{ item.comment | default(item.name) }}"
     shell: "{{ item.shell | default('/bin/bash') }}"
     state: "{{ item.state | default('present') }}"
     createhome: "{{ item.createhome | default('yes') }}"
   with_items: "{{ users }}"
   tags: ['users','configuration']
+
+- name: change age of users
+  command: "chage {{ item.name }} -I -1 -E -1 -m 0 -M 99999"
+  with_items: "{{ users }}"
 
 - name: add ssh keys
   authorized_key:
@@ -21,8 +25,8 @@
   tags: ['users','configuration']
 
 - name: delete users
-  user: 
+  user:
     name: "{{ item }}"
-    state: absent 
+    state: absent
   with_items: "{{ deleted_users }}"
   tags: ['users','configuration']
