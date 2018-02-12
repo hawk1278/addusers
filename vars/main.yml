@@ -1,2 +1,6 @@
 ---
+users: 
+- { name: "ro1423", comment: "", state: "present", sshkey: "../files/ro1423.pub"}
+
+deleted_users: ['']
 
