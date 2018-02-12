@@ -1,5 +1,3 @@
 ---
-users:
-- { name: "blah", comment: "blah", state: "present", sshkey: "lookup('file', '../files/blah.pub')"}
-
+users: []
 deleted_users: ['']
