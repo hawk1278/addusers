@@ -19,8 +19,8 @@
   authorized_key:
     user: "{{ item.name }}"
     state: "{{ item.state }}"
-    key: "{{ item.sshkey }}"
-    manage_dir: yes
+    key: "{{ lookup('file', item.sshkey)}}"
+    #manage_dir: yes
   with_items: "{{ users }}"
   tags: ['users','configuration']
 
