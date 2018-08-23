@@ -9,7 +9,7 @@
     state: "{{ item.state | default('present') }}"
     createhome: "{{ item.createhome | default('yes') }}"
   with_items: "{{ users }}"
-  tags: ['users','configuration']
+  tags: ['users', 'configuration']
 
 - name: change age of users
   command: "chage {{ item.name }} -I -1 -E -1 -m 0 -M 99999"
@@ -20,13 +20,12 @@
     user: "{{ item.name }}"
     state: "{{ item.state }}"
     key: "{{ lookup('file', item.sshkey)}}"
-    #manage_dir: yes
   with_items: "{{ users }}"
-  tags: ['users','configuration']
+  tags: ['users', 'configuration']
 
 - name: delete users
   user:
     name: "{{ item }}"
     state: absent
   with_items: "{{ deleted_users }}"
-  tags: ['users','configuration']
+  tags: ['users', 'configuration']
