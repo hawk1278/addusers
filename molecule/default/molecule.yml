@@ -1,0 +1,25 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+lint:
+  name: yamllint
+  enalbed: false
+platforms:
+  - name: instance
+    box: ubuntu/xenial64
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+    enabled: false
+scenario:
+  name: default
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+    enabled: false
